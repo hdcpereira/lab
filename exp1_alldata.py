@@ -41,7 +41,7 @@ temperatura = [None]*5
 ini_guess = [4e-3,4e-3,4e-3,4e-6,4e-6]
 
 for i in range(1,6):
-    filename = "CN_Eq1_m6_{}.txt".format(i)
+    filename = "dataset/CN_Eq1_m6_{}.txt".format(i)
     data[i-1] = pd.read_csv(filename,skiprows = 2,header = None, delimiter = '\t', names=['voltasMP','intensidade'])
 
     data[i-1] = data[i-1].apply(lambda x: x.str.replace(',','.'))

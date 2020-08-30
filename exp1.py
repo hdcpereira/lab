@@ -17,7 +17,7 @@ res_lampada = tensao_lamp /corrente
 
 temp = (temp0 * np.power((res_lampada/res_resistor),(1/1.24)))+273
 
-data = pd.read_csv("CN_Eq1_m6_1.txt",skiprows = 2,header = None, delimiter = '\t', names=['voltasMP','intensidade'])
+data = pd.read_csv("dataset/CN_Eq1_m6_1.txt",skiprows = 2,header = None, delimiter = '\t', names=['voltasMP','intensidade'])
 data = data.apply(lambda x: x.str.replace(',','.'))
 
 data['voltasMP'] = pd.to_numeric(data['voltasMP'], errors = 'coerce')
