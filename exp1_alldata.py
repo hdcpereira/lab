@@ -30,6 +30,7 @@ data = [None]*5
 mask = [None]*5
 x = [None]*5
 y = [None]*5
+sigma_y = [None]*5
 fundo = [None]*5
 ans = [None]*5
 cov = [None]*5
@@ -60,6 +61,8 @@ for i in range(1,6):
     fundo[i-1] = y[i-1].min()
     # y[i-1] = y[i-1]
 
+    sigma_y[i-1] = np.sqrt(y[i-1])
+
     ans[i-1], cov[i-1] = curve_fit(planck_func, x[i-1], y[i-1], p0=[ini_guess[i-1],temp[i-1],fundo[i-1]])
 
     y_fit[i-1] = planck_func(x[i-1],*ans[i-1])
@@ -74,11 +77,11 @@ for i in range(1,6):
 fig, ax1 = plt.subplots()
 
 
-ax1.plot(x[0],y[0],'.', label = 'set 1', alpha = 0.3)
-ax1.plot(x[1],y[1],'.', label = 'set 2', alpha = 0.3)
-ax1.plot(x[2],y[2],'.', label = 'set 3', alpha = 0.3)
-ax1.plot(x[3],y[3],'.', label = 'set 4', alpha = 0.3)
-ax1.plot(x[4],y[4],'.', label = 'set 5', alpha = 0.3)
+ax1.errorbar(x[0],y[0], yerr = sigma_y[0], fmt = '.', label = 'set 1', alpha = 0.3)
+ax1.errorbar(x[1],y[1], yerr = sigma_y[1], fmt = '.', label = 'set 2', alpha = 0.3)
+ax1.errorbar(x[2],y[2], yerr = sigma_y[2], fmt = '.', label = 'set 3', alpha = 0.3)
+ax1.errorbar(x[3],y[3], yerr = sigma_y[3], fmt = '.', label = 'set 4', alpha = 0.3)
+ax1.errorbar(x[4],y[4], yerr = sigma_y[4], fmt = '.', label = 'set 5', alpha = 0.3)
 
 ax1.plot(x[0],y_fit[0], '--', color ='red', label = 'fitted curve')
 ax1.plot(x[1],y_fit[1], '--', color ='red')
@@ -108,7 +111,7 @@ plt.legend(loc='upper right')
 
 fig.tight_layout()
 
-plt.savefig("exp1.jpeg")
+plt.savefig("exp1_alldata.jpeg", dpi = 300)
 plt.show()
 
 # %%
